@@ -74,9 +74,9 @@ int UnitTest_RandomCase(int size){
  * 
  * @return bool true if equivalent, false if not
  */
-bool checVec(vector<complex<double>> vec1, vector<complex<double>> vec2){
+bool checkVec(vector<complex<double>> vec1, vector<complex<double>> vec2){
     if (vec1.size() != vec2.size()) return false;
-    for (int i = 0; i < vec1.size(); i++){
+    for (long unsigned int i = 0; i < vec1.size(); i++){
         if (vec1[i] != vec2[i]) return false;
     }
     return true;
