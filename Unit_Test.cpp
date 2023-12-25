@@ -53,14 +53,14 @@ int UnitTest_SimpleCase(){
  * @return int 0 on pass, 1 on fail 
  */
 int UnitTest_RandomCase(int size){
-    if (!((size != 0) && ((size & (size - 1)) == 0))) return 1; // size not a power of 2
+    if (size > 0 && !(size & (size - 1)) == 0) return 1; // size not a power of 2
 
     // Seed the random number generator
     std::random_device rd;
     std::mt19937 gen(rd());
 
     // Define the distribution for the desired range
-    std::uniform_int_distribution<double> distribution(-100000.0, 100000.0);
+    std::uniform_int_distribution<int> distribution(-100000, 100000);
 
     vector<complex<double>> input;
     for(int i = 0; i < size; i++) input.push_back(complex<double>(distribution(gen), (distribution(gen))));
