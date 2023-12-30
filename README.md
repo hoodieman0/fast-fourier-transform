@@ -11,7 +11,26 @@ While not the most exhaustive function for every case, it serves as a baseline f
 
 <!-- How to use -->
 ## Usage
-All that is needed to use the algorithm is to download fft.hpp and fft.cpp and compile it with the program. Include fft.hpp in the file it is needed in. The unit test is not needed.
+All that is needed to use the algorithm is to download fft.hpp and fft.cpp and compile it with the program. Include fft.hpp in the file it is needed in. The lib_fft.so library can also be dynamically linked like such if needed:
+
+```
+>> c++ -shared -o lib_fft.so fft.o
+>> c++ -o main Unit_Test.o -L. -l_fft
+```
+
+The unit test is not needed unless you wish to test the fft program. The dynamically linked way is preferred for ease of exporting and linking the FFT function to other code.
+
+Because the Cooley-Tukey algorithm is a decimation-in-time algorithm, the FFT's input vector should have a size that is a power of 2. The following example would not produce useful results and should be avoided.
+
+```
+// vector of length 3
+vector<complex<double>> myVec = {
+        complex<double>(2.0,0.0), 
+        complex<double>(-2.0,-2.0),
+        complex<double>(0.0, -2.0),
+    }; 
+FourierTransform(myVec); // returns garbage data
+```
 
 <!-- Why -->
 ## Why?
@@ -20,7 +39,7 @@ I mainly did this to learn what the FFT algorithm was. Using the function provid
 <!-- Further Work -->
 ## Future Work
 * Allow sizes that are not powers of 2 (see [2])
-* Allow overload for real numbers
+* Allow overload for non-complex numbers
 * Add more prewritten unit tests
 * More reading on Fourier Transforms
 * Research possibilities of Inverse Fourier Transforms
