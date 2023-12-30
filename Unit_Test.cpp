@@ -15,9 +15,16 @@ int main(){
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> distribution(1, 10000);
 
-    for (int i = 0; i < 10000; i++)
-        if (UnitTest_RandomCase(distribution(gen))) { cout << "Unit_Test Random Case failed!" << endl; }
+    int num;
 
+    for (int i = 0; i < 10000; i++){
+        num = distribution(gen);
+        //ensures a power of 2 is chosen, can be removed to test
+        while (num > 0 && !(num & (num - 1)) == 0 ) num = distribution(gen);
+        if (UnitTest_RandomCase(num)) { cout << "Unit_Test Random Case failed!" << endl; }
+        else { cout << "Unit_Test Random Case must be verified!" << endl; }
+        cout << "Sample Size: " << num << endl << endl;
+    }
     return 0;
 }
 
